@@ -11,20 +11,22 @@ let io = require("socket.io")(http);
 let playerContainer = new PlayersArrContainer_1.PlayersArrContainer();
 io.on(GameSocketEvents_1.GameSocketEvents.CONNECTION, (socket) => {
     let currentPlayer = new Player_1.Player();
-    console.log("new client connected => " + socket.id);
-    socket.on(GameSocketEvents_1.GameSocketEvents.CLIENT_INIT, (data) => {
+    console.log("client connected => " + socket.id);
+    socket.on(GameSocketEvents_1.GameSocketEvents.PLAYER_INIT, (data) => {
         currentPlayer.setUID(data.UID);
         currentPlayer.setName(data.name);
+        currentPlayer.setPosition(data.position);
+        currentPlayer.setRotation(data.rotation);
         playerContainer.Update(currentPlayer);
-        console.log("client init " + currentPlayer.getUID());
+        console.log(GameSocketEvents_1.GameSocketEvents.PLAYER_INIT, data);
     });
     socket.on(GameSocketEvents_1.GameSocketEvents.PLAYER_MOVE, (data) => {
         currentPlayer.setPosition(data);
-        console.log(currentPlayer);
+        console.log(GameSocketEvents_1.GameSocketEvents.PLAYER_MOVE, data);
     });
     socket.on(GameSocketEvents_1.GameSocketEvents.PLAYER_ROTATE, (data) => {
         currentPlayer.setRotation(data);
-        console.log(currentPlayer);
+        console.log(GameSocketEvents_1.GameSocketEvents.PLAYER_ROTATE, data);
     });
     socket.on(GameSocketEvents_1.GameSocketEvents.DISCONNECT, () => {
         playerContainer.Update(currentPlayer);

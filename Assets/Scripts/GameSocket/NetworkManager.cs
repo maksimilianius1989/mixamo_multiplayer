@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Controllers;
 using SocketIO;
 using UnityEngine;
 using GSE = GameSocket.GameSocketEvents;
@@ -9,6 +10,8 @@ namespace GameSocket
 	public class NetworkManager : MonoBehaviour
 	{
 		public static NetworkManager instance;
+
+		public PlayerController PC;
 
 		private SocketIOComponent socket;
 
@@ -48,9 +51,11 @@ namespace GameSocket
 			PlayerJSON ps = new PlayerJSON();
 			ps.UID = "1";
 			ps.name = "Vasy";
+			ps.position = new PositionJSON(PC.transform.position);
+			ps.rotation = new RotationJSON(PC.transform.rotation);
 			string data = JsonUtility.ToJson(ps);
 
-			socket.Emit(GSE.CLIENT_INIT, new JSONObject(data));
+			socket.Emit(GSE.PLAYER_INIT, new JSONObject(data));
 		}
 
 		public void CommandMove(Vector3 position)
@@ -72,6 +77,8 @@ namespace GameSocket
 		{
 			public string UID;
 			public string name;
+			public PositionJSON position;
+			public RotationJSON rotation;
 		}
 
 		[Serializable]

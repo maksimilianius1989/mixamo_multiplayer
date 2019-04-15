@@ -2,7 +2,7 @@ namespace GameSocket
 {
     public struct GameSocketEvents
     {
-        public const string CLIENT_INIT = "client_init";
+        public const string PLAYER_INIT = "player_init";
 
         public const string PLAYER_MOVE = "player_move";
 
