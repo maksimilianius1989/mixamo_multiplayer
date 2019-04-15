@@ -1,22 +1,54 @@
 import * as express from "express";
-import {User} from "./Entities/User";
-import {UserList} from "./Entities/UserList";
+import {Socket} from "socket.io";
+import {IPlayersContainer} from "./Entities/IPlayersContainer";
+import {PlayersArrContainer} from "./Entities/PlayersArrContainer";
+import {GameSocketEvents as GSE} from "./GameSocket/GameSocketEvents";
+import {Player} from "./Entities/Player";
 
 const app = express();
-app.set("port", process.env.PORT || 3001);
+app.set("port", process.env.PORT || 3000);
+let http = require("http").Server(app);
+let io = require("socket.io")(http);
 
-var http = require("http").Server(app);
+let playerContainer: IPlayersContainer = new PlayersArrContainer();
 
-app.get("/", (req: any, res: any) => {
-    let user = new User();
-    user.age = 29;
-    user.name = "Maks";
-    let userList: UserList = new UserList();
-    let users: Array<User> = userList.AddUser(user);
+io.on(GSE.CONNECTION, (socket: Socket) =>
+{
+    let currentPlayer = new Player();
+    console.log("new client connected => " + socket.id);
 
-    res.send("hello world 777 " + JSON.stringify(users));
+    socket.on(GSE.CLIENT_INIT, (data: any) =>
+    {
+        currentPlayer.setUID(data.UID);
+        currentPlayer.setName(data.name);
+
+        playerContainer.Update(currentPlayer);
+
+        console.log("client init " + currentPlayer.getUID())
+    });
+
+    socket.on(GSE.PLAYER_MOVE, (data: any) =>
+    {
+        currentPlayer.setPosition(data);
+
+        console.log(currentPlayer);
+    });
+
+    socket.on(GSE.PLAYER_ROTATE, (data: any) =>
+    {
+        currentPlayer.setRotation(data);
+
+        console.log(currentPlayer);
+    })
+
+    socket.on(GSE.DISCONNECT, () =>
+    {
+        playerContainer.Update(currentPlayer);
+
+        console.log("player disconnected => " + socket.id);
+    });
 });
 
-const server = http.listen(3001, function() {
-    console.log("listening on *:3001");
+const server = http.listen(3000, function() {
+    console.log("listening on *:3000");
 });
