@@ -6,16 +6,16 @@ class NewRoadInitRequest extends BaseRequestValidator_1.BaseRequestValidator {
     constructor(data) {
         super();
         this.name = data.name;
-        this.startPoints = data.startPoints;
-        this.startTime = data.startTime;
+        this.countStartPoints = +data.countStartPoints;
+        this.startTime = +data.startTime;
     }
     rules() {
         if (ValidatorHelper_1.ValidatorHelper.isEmpty(this.name))
             this.errors.push("New road name is empty");
         if (ValidatorHelper_1.ValidatorHelper.isEmpty(this.startTime))
             this.errors.push("New road start time is empty");
-        if (this.startPoints.length <= 0)
-            this.errors.push("New road start points is empty");
+        if (ValidatorHelper_1.ValidatorHelper.isEmpty(this.countStartPoints))
+            this.errors.push("New road count start points is empty");
     }
 }
 exports.NewRoadInitRequest = NewRoadInitRequest;

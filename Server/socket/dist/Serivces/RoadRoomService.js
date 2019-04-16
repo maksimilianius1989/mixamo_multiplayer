@@ -6,8 +6,8 @@ const RandomHelper_1 = require("../Helpers/RandomHelper");
 class RoadRoomService {
     initNewRoad(roadRoomData) {
         let generateUID = RandomHelper_1.RandomHelper.guidForList(Storage_1.ROAD_ROOMS.GetAll());
-        let generateMap = this.generateMap(roadRoomData.startPoints.length);
-        let roadRoom = new RoadRoom_1.RoadRoom(generateUID, roadRoomData.name, roadRoomData.startPoints.length, generateMap, roadRoomData.startPoints, roadRoomData.startTime);
+        let generateMap = this.generateMap(roadRoomData.countStartPoints);
+        let roadRoom = new RoadRoom_1.RoadRoom(generateUID, roadRoomData.name, roadRoomData.countStartPoints, generateMap, roadRoomData.startTime);
         Storage_1.ROAD_ROOMS.Add(roadRoom);
         return roadRoom;
     }

@@ -65,15 +65,7 @@ namespace GameSocket
 		{
 			var road = AR.allRoads[0].gameObject;
 			var roadRoom = road.GetComponent<RoadRoom>();
-			// get points for start game
-			var startPoints = roadRoom.startPoints;
-			Vector3[] pointsPosition = new Vector3[startPoints.Length];
-			for (int i = 0; i < startPoints.Length; i++)
-			{
-				pointsPosition[i] = startPoints[i].transform.position;
-			}
-
-			var newRoadStr = JsonUtility.ToJson(new NewRoadInit(road.name, pointsPosition, roadRoom.startTime));
+			var newRoadStr = JsonUtility.ToJson(new NewRoadInit(road.name, roadRoom.startPoints.Length, roadRoom.startTime));
 			socket.Emit(GSE.NEW_ROAD_INIT, new JSONObject(newRoadStr));
 		}
 
@@ -95,14 +87,14 @@ namespace GameSocket
 		public class NewRoadInit
 		{
 			public string name;
-			public Vector3[] startPoints;
-			public int startAt;
+			public int countStartPoints;
+			public int startTime;
 
-			public NewRoadInit(string name, Vector3[] startPoints, int startAt)
+			public NewRoadInit(string name, int countStartPoints, int startTime)
 			{
 				this.name = name;
-				this.startPoints = startPoints;
-				this.startAt = startAt;
+				this.countStartPoints = countStartPoints;
+				this.startTime = startTime;
 			}
 		}
 

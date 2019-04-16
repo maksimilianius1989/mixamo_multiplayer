@@ -1,4 +1,3 @@
-import {Vector3} from "../Entities/Navigations/Vector3";
 import {RoadRoom} from "../Entities/RoadRoom";
 import {ROAD_ROOMS} from "../GameData/Storage";
 import {RandomHelper} from "../Helpers/RandomHelper";
@@ -9,14 +8,13 @@ export class RoadRoomService
     public initNewRoad(roadRoomData: NewRoadInitRequest): RoadRoom
     {
         let generateUID = RandomHelper.guidForList(ROAD_ROOMS.GetAll());
-        let generateMap = this.generateMap(roadRoomData.startPoints.length);
+        let generateMap = this.generateMap(roadRoomData.countStartPoints);
 
         let roadRoom = new RoadRoom(
             generateUID,
             roadRoomData.name,
-            roadRoomData.startPoints.length,
+            roadRoomData.countStartPoints,
             generateMap,
-            roadRoomData.startPoints,
             roadRoomData.startTime
         );
 
