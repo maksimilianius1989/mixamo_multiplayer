@@ -7,6 +7,20 @@ class RandomHelper {
         }
         return s4() + s4() + '-' + s4() + s4() + '-' + s4() + s4() + '-' + s4() + s4() + '-' + s4() + s4() + '-' + s4() + s4();
     }
+    static number(max, min = 0) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+    static guidForList(list) {
+        let uid = this.guid();
+        if (list.length) {
+            for (let item of list) {
+                if (item.compareUID(uid)) {
+                    return this.guidForList(list);
+                }
+            }
+        }
+        return uid;
+    }
 }
 exports.RandomHelper = RandomHelper;
 //# sourceMappingURL=RandomHelper.js.map

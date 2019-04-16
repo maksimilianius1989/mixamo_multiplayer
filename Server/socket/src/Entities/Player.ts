@@ -1,24 +1,11 @@
-export class Player
+import {BaseEntity} from "./BaseEntity";
+
+export class Player extends BaseEntity
 {
-    private UID: string;
-    private name: string;
-    private position: Array<string>;
-    private rotation: Array<string>;
-
-    public getUID(): string
-    {
-        return this.UID;
-    }
-
-    public setUID(_UID: string): void
-    {
-        this.UID = _UID;
-    }
-
-    public compareUID(UID: string): boolean
-    {
-        return this.UID === UID;
-    }
+    protected name: string;
+    protected position: Array<string>;
+    protected rotation: Array<string>;
+    protected roadRoomID: string;
 
     public getName(): string
     {
@@ -48,5 +35,15 @@ export class Player
     public getRotation(): Array<string>
     {
         return this.rotation;
+    }
+
+    public setRoadRoom(ID: string): void
+    {
+        this.roadRoomID = ID;
+    }
+
+    public getRoadRoomID(): string
+    {
+        return this.roadRoomID;
     }
 }

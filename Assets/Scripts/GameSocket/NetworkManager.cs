@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Runtime.InteropServices;
 using Controllers;
 using SocketIO;
 using UnityEngine;
@@ -11,8 +12,8 @@ namespace GameSocket
 	{
 		public static NetworkManager instance;
 
-		public PlayerController PC;
-
+		private PlayerController PC;
+		private AllRoads AR;
 		private SocketIOComponent socket;
 
 		void Awake()
@@ -28,6 +29,8 @@ namespace GameSocket
 		private void Start()
 		{
 			socket = GameObject.Find("SocketIO").GetComponent<SocketIOComponent>();
+			PC = GameObject.Find("Player").GetComponent<PlayerController>();
+			AR = GameObject.Find("AllRoads").GetComponent<AllRoads>();
 
 			socket.On(GSE.CONNECT, socket =>
 			{
@@ -58,6 +61,22 @@ namespace GameSocket
 			socket.Emit(GSE.PLAYER_INIT, new JSONObject(data));
 		}
 
+		public void CommandNewRoadInit()
+		{
+			var road = AR.allRoads[0].gameObject;
+			var roadRoom = road.GetComponent<RoadRoom>();
+			// get points for start game
+			var startPoints = roadRoom.startPoints;
+			Vector3[] pointsPosition = new Vector3[startPoints.Length];
+			for (int i = 0; i < startPoints.Length; i++)
+			{
+				pointsPosition[i] = startPoints[i].transform.position;
+			}
+
+			var newRoadStr = JsonUtility.ToJson(new NewRoadInit(road.name, pointsPosition, roadRoom.startTime));
+			socket.Emit(GSE.NEW_ROAD_INIT, new JSONObject(newRoadStr));
+		}
+
 		public void CommandMove(Vector3 position)
 		{
 			socket.Emit(GSE.PLAYER_MOVE, new JSONObject(JsonUtility.ToJson(new PositionJSON(position))));
@@ -71,6 +90,21 @@ namespace GameSocket
 		#endregion
 
 		#region JSONMessageClasses
+
+		[Serializable]
+		public class NewRoadInit
+		{
+			public string name;
+			public Vector3[] startPoints;
+			public int startAt;
+
+			public NewRoadInit(string name, Vector3[] startPoints, int startAt)
+			{
+				this.name = name;
+				this.startPoints = startPoints;
+				this.startAt = startAt;
+			}
+		}
 
 		[Serializable]
 		public class PlayerJSON

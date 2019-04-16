@@ -1,15 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class Player {
-    getUID() {
-        return this.UID;
-    }
-    setUID(_UID) {
-        this.UID = _UID;
-    }
-    compareUID(UID) {
-        return this.UID === UID;
-    }
+const BaseEntity_1 = require("./BaseEntity");
+class Player extends BaseEntity_1.BaseEntity {
     getName() {
         return this.name;
     }
@@ -27,6 +19,12 @@ class Player {
     }
     getRotation() {
         return this.rotation;
+    }
+    setRoadRoom(ID) {
+        this.roadRoomID = ID;
+    }
+    getRoadRoomID() {
+        return this.roadRoomID;
     }
 }
 exports.Player = Player;
