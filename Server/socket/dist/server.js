@@ -7,7 +7,7 @@ const GameSocketEvents_1 = require("./GameSocket/GameSocketEvents");
 const Player_1 = require("./Entities/Player");
 const NewRoadInitRequest_1 = require("./RequestMessageClasses/NewRoadInitRequest");
 const app = express();
-app.set("port", process.env.PORT || 3000);
+app.set("port", 3000);
 let http = require("http").Server(app);
 let io = require("socket.io")(http);
 let MRS = App_1.App.getInstance();
@@ -29,6 +29,7 @@ io.on(GameSocketEvents_1.GameSocketEvents.CONNECTION, (socket) => {
         console.log(GameSocketEvents_1.GameSocketEvents.PLAYER_INIT, data);
     });
     socket.on(GameSocketEvents_1.GameSocketEvents.NEW_ROAD_INIT, (data) => {
+        throw new BadRequestExceptoin_1.BadRequestExceptoin();
         try {
             let newRoadInit = new NewRoadInitRequest_1.NewRoadInitRequest(data);
             if (!newRoadInit.validate())

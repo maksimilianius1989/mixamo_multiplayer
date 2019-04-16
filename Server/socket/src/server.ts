@@ -8,7 +8,7 @@ import {Player} from "./Entities/Player";
 import {NewRoadInitRequest} from "./RequestMessageClasses/NewRoadInitRequest";
 
 const app = express();
-app.set("port", process.env.PORT || 3000);
+app.set("port", 3000);
 let http = require("http").Server(app);
 let io = require("socket.io")(http);
 
@@ -41,6 +41,7 @@ io.on(GSE.CONNECTION, (socket: Socket) =>
     // создание нового забега
     socket.on(GSE.NEW_ROAD_INIT, (data: any) =>
     {
+        throw new BadRequestExceptoin();
         try {
             let newRoadInit = new NewRoadInitRequest(data);
             if (!newRoadInit.validate())
