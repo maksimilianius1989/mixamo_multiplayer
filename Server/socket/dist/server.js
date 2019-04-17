@@ -1,11 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const fs = require("fs");
+const Dotenv = require("dotenv");
 const express = require("express");
 const App_1 = require("./App");
 const BadRequestExceptoin_1 = require("./Exceptions/BadRequestExceptoin");
 const GameSocketEvents_1 = require("./GameSocket/GameSocketEvents");
 const Player_1 = require("./Entities/Player");
 const NewRoadInitRequest_1 = require("./RequestMessageClasses/NewRoadInitRequest");
+const ENV = Dotenv.parse(fs.readFileSync(__dirname + '/../.env'));
 const app = express();
 app.set("port", 3000);
 let http = require("http").Server(app);

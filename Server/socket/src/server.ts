@@ -1,4 +1,7 @@
+import * as fs from "fs";
+import * as Dotenv from "dotenv";
 import * as express from "express";
+//@ts-ignore
 import {Socket} from "socket.io";
 import {App as MixamoRunnerSerever} from "./App";
 import {BadRequestExceptoin} from "./Exceptions/BadRequestExceptoin";
@@ -6,7 +9,9 @@ import {GameSocketEvents as GSE} from "./GameSocket/GameSocketEvents";
 import {Player} from "./Entities/Player";
 import {NewRoadInitRequest} from "./RequestMessageClasses/NewRoadInitRequest";
 
+const ENV = Dotenv.parse(fs.readFileSync(__dirname + '/../.env'));
 const app = express();
+
 app.set("port", 3000);
 let http = require("http").Server(app);
 let io = require("socket.io")(http);
