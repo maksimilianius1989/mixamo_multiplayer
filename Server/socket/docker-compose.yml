@@ -2,7 +2,7 @@ version: "2"
 services:
   app:
     command: ["node", "dist/server.js"]
-    container_name: app
+    container_name: road_service_node
     restart: always
     build: .
     ports:
@@ -10,9 +10,9 @@ services:
     links:
       - mysql
   mysql:
-    container_name: flask_mysql
+    container_name: road_service_mysql
     restart: always
-    image: mysql:latest
+    image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: 'test_pass' # TODO: Change this
       MYSQL_USER: 'test'
