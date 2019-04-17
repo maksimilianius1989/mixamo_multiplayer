@@ -302,7 +302,7 @@
     <None Include="Assets\SocketIO\JSONObject\readme.txt" />
     <None Include="Assets\SocketIO\Readme.txt" />
     <Reference Include="Facebook.Unity.Settings">
-      <HintPath>/media/vimax/HDD/Projects/MixamoMultiplayer/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+      <HintPath>/media/vimax/HDD1/Projects/MixamoMultiplayer/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

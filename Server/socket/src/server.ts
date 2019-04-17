@@ -2,7 +2,6 @@ import * as express from "express";
 import {Socket} from "socket.io";
 import {App as MixamoRunnerSerever} from "./App";
 import {BadRequestExceptoin} from "./Exceptions/BadRequestExceptoin";
-import {InvalidArgumentException} from "./Exceptions/InvalidArgumentException";
 import {GameSocketEvents as GSE} from "./GameSocket/GameSocketEvents";
 import {Player} from "./Entities/Player";
 import {NewRoadInitRequest} from "./RequestMessageClasses/NewRoadInitRequest";
@@ -17,7 +16,7 @@ let MRS: MixamoRunnerSerever = MixamoRunnerSerever.getInstance();
 io.on(GSE.CONNECTION, (socket: Socket) =>
 {
     let currentPlayer = new Player();
-    currentPlayer.setName('unknown');
+    currentPlayer.setName('unknown 1');
 
     console.log(GSE.CONNECTION, currentPlayer);
 
@@ -41,7 +40,6 @@ io.on(GSE.CONNECTION, (socket: Socket) =>
     // создание нового забега
     socket.on(GSE.NEW_ROAD_INIT, (data: any) =>
     {
-        throw new BadRequestExceptoin();
         try {
             let newRoadInit = new NewRoadInitRequest(data);
             if (!newRoadInit.validate())

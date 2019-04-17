@@ -13,7 +13,7 @@ let io = require("socket.io")(http);
 let MRS = App_1.App.getInstance();
 io.on(GameSocketEvents_1.GameSocketEvents.CONNECTION, (socket) => {
     let currentPlayer = new Player_1.Player();
-    currentPlayer.setName('unknown');
+    currentPlayer.setName('unknown 1');
     console.log(GameSocketEvents_1.GameSocketEvents.CONNECTION, currentPlayer);
     socket.on(GameSocketEvents_1.GameSocketEvents.PLAYER_INIT, (data) => {
         try {
@@ -29,7 +29,6 @@ io.on(GameSocketEvents_1.GameSocketEvents.CONNECTION, (socket) => {
         console.log(GameSocketEvents_1.GameSocketEvents.PLAYER_INIT, data);
     });
     socket.on(GameSocketEvents_1.GameSocketEvents.NEW_ROAD_INIT, (data) => {
-        throw new BadRequestExceptoin_1.BadRequestExceptoin();
         try {
             let newRoadInit = new NewRoadInitRequest_1.NewRoadInitRequest(data);
             if (!newRoadInit.validate())

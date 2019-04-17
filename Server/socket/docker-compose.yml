@@ -6,7 +6,7 @@ services:
     restart: always
     build: .
     ports:
-      - "3000:3000"
+      - "3001:3000"
     links:
       - mysql
   mysql:
@@ -18,6 +18,6 @@ services:
       MYSQL_USER: 'test'
       MYSQL_PASS: 'pass'
     volumes:
-      - ./mysql_data:/var/lib/mysql
+      - ./temp/mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"

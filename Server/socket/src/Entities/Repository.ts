@@ -1,6 +1,7 @@
+import {IEntity} from "./IEntity";
 import {IList} from "./IList";
 
-export class Repository<IEntity> implements IList<IEntity>
+export class Repository<T> implements IList<IEntity>
 {
     protected repository: Array<IEntity> = new Array<IEntity>();
 
