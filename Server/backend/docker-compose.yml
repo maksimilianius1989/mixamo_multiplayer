@@ -5,10 +5,11 @@ services:
       context: ./
       dockerfile: docker/nginx.docker
     volumes:
-      - ./:/var/www
       - ./docker/nginx/ssl:/etc/nginx/ssl
+      - ./:/var/www
     ports:
       - "8080:80"
+      - "8081:81"
     links:
       - php-fpm
   php-fpm:
@@ -22,9 +23,6 @@ services:
     environment:
       - "DB_PORT=3306"
       - "DB_HOST=mysql"
-      - "REDIS_PORT=6379"
-      - "REDIS_HOST=redis"
-      - "ELASTICSEARCH_HOSTS=elasticsearch:9200"
   php-cli:
     build:
       context: ./
@@ -36,9 +34,6 @@ services:
     environment:
       - "DB_PORT=3306"
       - "DB_HOST=mysql"
-      - "REDIS_PORT=6379"
-      - "REDIS_HOST=redis"
-      - "ELASTICSEARCH_HOSTS=elasticsearch:9200"
     tty: true
   mysql:
     image: mysql:5.7

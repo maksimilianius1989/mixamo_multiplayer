@@ -1,9 +1,9 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{F92931FE-B068-8FD9-8883-FB4211623040}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixamoMultiplayer", "Assembly-CSharp.csproj", "{F92931FE-B068-8FD9-8883-FB4211623040}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{284410D6-AAD7-43B7-19E9-B0CC0BCED701}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixamoMultiplayer", "Assembly-CSharp-Editor.csproj", "{284410D6-AAD7-43B7-19E9-B0CC0BCED701}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
